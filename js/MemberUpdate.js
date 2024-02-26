@@ -19,6 +19,8 @@ const storage = firebase.storage();
 const updateForm = document.getElementById('updateForm');
 
 
+
+
 // Function to fetch and populate member details in the form
 function populateMemberDetails(memberId) {
 
@@ -79,34 +81,37 @@ function populateMemberDetails(memberId) {
 // Populate form with member details
 // populateMemberDetails(memberId);
 // Function to handle form submission (update member)
-updateForm.addEventListener('submit', function (event) {
+
+// console.log(updateForm.name)
+updateForm.addEventListener('submit', async function (event) {
     event.preventDefault(); // Prevent default form submission
 
     // Get updated values from the form
-    const updatedName = updateForm.name.value;
-    const updatedAge = updateForm.age.value;
-    const updateEmail = updateForm.email.value;
-    const updateImage = updateForm.picture.files[0];
 
-    // Upload picture to Firebase Storage
-    const pictureRef = storage.ref().child('member-profile-pictures/' + updateImage.name);
-    pictureRef.put(updateImage)
-        .then(snapshot => snapshot.ref.getDownloadURL()) // Get download URL after upload
-        .then(async downloadURL => {
-            // Update member record in Firestore
-            const memberRef = db.collection('members')
-                .where('adminId', '==', firebase.auth().currentUser.uid)
-                .where('id', '==', memberId);
-
-            const querySnapshot = await memberRef.get();
+    const updatedName = updateForm.elements.name.value;
+    const updatedAge = updateForm.elements.age.value;
+    const updateEmail = updateForm.elements.email.value;
+    const updateImage = updateForm.elements.picture.files[0];
 
 
 
-            if (!querySnapshot.empty) {
+    const memberRef = db.collection('members')
+        .where('adminId', '==', firebase.auth().currentUser.uid)
+        .where('id', '==', memberId);
+
+    const querySnapshot = await memberRef.get();
+
+    if (querySnapshot.empty) return alert("no member to update")
+
+    if (updateImage) {
+
+
+        const pictureRef = storage.ref().child('member-profile-pictures/' + updateImage.name);
+        pictureRef.put(updateImage)
+            .then(snapshot => snapshot.ref.getDownloadURL()) // Get download URL after upload
+            .then(async downloadURL => {
 
                 const doc = querySnapshot.docs[0];
-
-
 
                 return db.collection('members').doc(doc.id).update({
                     name: updatedName,
@@ -114,20 +119,31 @@ updateForm.addEventListener('submit', function (event) {
                     email: updateEmail,
                     pictureUrl: downloadURL,
                 })
-            } else {
-                console.error('No member to delete');
-            }
 
 
+            })
+            .then(() => {
+                console.log('Member record updated successfully');
+                alert('Member Record Updated');
+                // Optionally, redirect to another page or update UI
+            })
+            .catch((error) => {
+                console.error('Error updating member record:', error);
+            });
+    } else {
+
+        const doc = querySnapshot.docs[0];
+        db.collection('members').doc(doc.id).update({
+            name: updatedName,
+            age: updatedAge,
+            email: updateEmail,
+
         })
-        .then(() => {
-            console.log('Member record updated successfully');
-            alert('Member Record Updated');
-            // Optionally, redirect to another page or update UI
-        })
-        .catch((error) => {
-            console.error('Error updating member record:', error);
-        });
+
+        return alert("updated!")
+
+
+    }
 });
 
 // Get member ID from URL query parameters
