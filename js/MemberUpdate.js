@@ -1,0 +1,138 @@
+const firebaseConfig = {
+    apiKey: "AIzaSyAcVcB4nUDTuDuvo3yz1Bzsmo60MfY9-fE",
+    authDomain: "final-year-project-6e437.firebaseapp.com",
+    databaseURL: "https://final-year-project-6e437-default-rtdb.firebaseio.com",
+    projectId: "final-year-project-6e437",
+    storageBucket: "final-year-project-6e437.appspot.com",
+    messagingSenderId: "606296370149",
+    appId: "1:606296370149:web:567cce8e5c9e8c7f791d0c",
+    measurementId: "G-CMVRYXQWEX"
+};
+firebase.initializeApp(firebaseConfig);
+
+// Reference to the Firestore database
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+
+// Get reference to the update form
+const updateForm = document.getElementById('updateForm');
+
+
+// Function to fetch and populate member details in the form
+function populateMemberDetails(memberId) {
+
+    firebase.auth().onAuthStateChanged(async function (user) {
+        if (user) {
+
+            const memberRef = db.collection('members').where(
+                'adminId', '==', user?.uid
+            ).where('id', '==', memberId)
+
+            const querySnapshot = await memberRef.get()
+            if (!querySnapshot.empty) {
+
+                const doc = querySnapshot.docs[0];
+                const member = doc.data();
+
+                updateForm.name.value = member.name;
+                updateForm.age.value = member.age;
+                updateForm.email.value = member.email;
+                updateForm.image.src = member.pictureUrl;
+
+
+            }
+            else {
+                console.error('No such member document found.');
+            }
+
+
+            // Fetch member details from Firestore
+            // const gymRef = db.collection('gyms').doc(user?.uid);
+
+            // gymRef.collection('members').doc(memberId).get()
+            //     .then((doc) => {
+            //         if (doc.exists) {
+            //             const member = doc.data();
+            //             console.log(member);
+            //             // Populate form fields with member details
+            //             updateForm.name.value = member.name;
+            //             updateForm.age.value = member.age;
+            //             updateForm.email.value = member.email;
+            //             updateForm.image.src = member.pictureUrl;
+
+            //             // Populate other fields as needed
+            //         } else {
+            //             console.error('No such member document found.');
+            //         }
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error fetching member details:', error);
+            //     });
+        }
+        else {
+            console.log('not found anything')
+        }
+    })
+}
+
+// Populate form with member details
+// populateMemberDetails(memberId);
+// Function to handle form submission (update member)
+updateForm.addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Get updated values from the form
+    const updatedName = updateForm.name.value;
+    const updatedAge = updateForm.age.value;
+    const updateEmail = updateForm.email.value;
+    const updateImage = updateForm.picture.files[0];
+
+    // Upload picture to Firebase Storage
+    const pictureRef = storage.ref().child('member-profile-pictures/' + updateImage.name);
+    pictureRef.put(updateImage)
+        .then(snapshot => snapshot.ref.getDownloadURL()) // Get download URL after upload
+        .then(async downloadURL => {
+            // Update member record in Firestore
+            const memberRef = db.collection('members')
+                .where('adminId', '==', firebase.auth().currentUser.uid)
+                .where('id', '==', memberId);
+
+            const querySnapshot = await memberRef.get();
+
+
+
+            if (!querySnapshot.empty) {
+
+                const doc = querySnapshot.docs[0];
+
+
+
+                return db.collection('members').doc(doc.id).update({
+                    name: updatedName,
+                    age: updatedAge,
+                    email: updateEmail,
+                    pictureUrl: downloadURL,
+                })
+            } else {
+                console.error('No member to delete');
+            }
+
+
+        })
+        .then(() => {
+            console.log('Member record updated successfully');
+            alert('Member Record Updated');
+            // Optionally, redirect to another page or update UI
+        })
+        .catch((error) => {
+            console.error('Error updating member record:', error);
+        });
+});
+
+// Get member ID from URL query parameters
+const urlParams = new URLSearchParams(window.location.search);
+const memberId = urlParams.get('memberId');
+populateMemberDetails(memberId)
+
+

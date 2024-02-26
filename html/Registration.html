@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-storage.js"></script>
+
+</head>
+<body>
+
+ <!-- Member Registration Form -->
+ <h2>Register New Member</h2>
+ <form id="memberRegistrationForm">
+   <label for="name">Name:</label>
+   <input type="text" id="name" required><br>
+   
+   <label for="email">Email:</label>
+   <input type="email" id="email" required><br>
+   
+   <label for="age">Age:</label>
+   <input type="number" id="age" required><br>
+   
+   <label for="phoneNumber">Phone Number:</label>
+   <input type="tel" id="phoneNumber" required><br>
+
+   <label for="password">Password:</label>
+   <input type="password" id="password" required><br>
+
+   <label for="rfid">RFID:</label>
+   <input type="text" id="rfid" required><br>
+   
+   <label for="picture">Picture:</label>
+   <input type="file" id="picture" accept="image/*" required><br>
+   
+   <button type="submit">Register Member</button>
+ </form>
+
+ <script src="/js/Registration.js"></script>
+</body>
+</html>
