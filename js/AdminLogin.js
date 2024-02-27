@@ -14,30 +14,79 @@ const firebaseConfig = {
   const firestore = firebase.firestore();
 
   // Access Firebase Authentication
-const auth = firebase.auth();
+  const auth = firebase.auth();
 
 
-  // Get reference to the admin login form
-const adminLoginForm = document.getElementById('adminLoginForm');
+const loginForm = document.getElementById('adminLoginForm');
 
-// Add submit event listener to the admin login form
-adminLoginForm.addEventListener('submit', function(event) {
+// Add submit event listener to the login form
+loginForm.addEventListener('submit', function(event) {
   event.preventDefault();
 
   // Get values from form inputs
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
-  // Sign in the admin with Firebase Authentication
+  // Sign in the user with Firebase Authentication
   auth.signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
-      console.log('Admin logged in successfully:', userCredential.user);
-      // Optionally redirect to the dashboard or show a success message
-      window.location.href = "/html/DashBoard.html"; // Redirect to the admin dashboard page
+      // Check if the user is an admin
+      const user = userCredential.user;
+      firestore.collection('gyms').doc(user.uid).get()
+        .then((doc) => {
+          if (doc.exists) {
+            // Admin logged in successfully
+            console.log('Admin logged in successfully:', user);
+           window.location.href = "/html/Dashboard.html"; // Redirect to the admin dashboard
+          } else {
+            // Member logged in successfully
+            console.log('Member logged in successfully:', user);
+           window.location.href = `/html/MemberData.html?userId=${user.uid}`; // Redirect to the member profile page
+          }
+        })
+        .catch((error) => {
+          console.error('Error checking user role:', error.message);
+          // Optionally display an error message to the user
+          alert('An error occurred. Please try again.');
+        });
     })
     .catch((error) => {
-      console.error('Error logging in admin:', error.message);
+      console.error('Error logging in:', error.message);
       // Optionally display an error message to the user
       alert('Invalid email or password. Please try again.');
     });
 });
+
+
+
+
+
+
+
+
+
+
+//   // Get reference to the admin login form
+// const adminLoginForm = document.getElementById('adminLoginForm');
+
+// // Add submit event listener to the admin login form
+// adminLoginForm.addEventListener('submit', function(event) {
+//   event.preventDefault();
+
+//   // Get values from form inputs
+//   const email = document.getElementById('email').value;
+//   const password = document.getElementById('password').value;
+
+//   // Sign in the admin with Firebase Authentication
+//   auth.signInWithEmailAndPassword(email, password)
+//     .then((userCredential) => {
+//       console.log('Admin logged in successfully:', userCredential.user);
+//       // Optionally redirect to the dashboard or show a success message
+//       window.location.href = "/html/DashBoard.html"; // Redirect to the admin dashboard page
+//     })
+//     .catch((error) => {
+//       console.error('Error logging in admin:', error.message);
+//       // Optionally display an error message to the user
+//       alert('Invalid email or password. Please try again.');
+//     });
+// });
