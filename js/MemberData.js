@@ -21,6 +21,7 @@ const memberDataDiv = document.getElementById('MemberData');
 
 function showMember(memberId) {
   auth.onAuthStateChanged(async function (user) {
+    console.log(user)
     if (user) {
       try {
         const memberRef = db.collection('members')

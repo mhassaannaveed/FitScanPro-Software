@@ -18,7 +18,6 @@ const firebaseConfig = {
 
 
 const loginForm = document.getElementById('adminLoginForm');
-
 // Add submit event listener to the login form
 loginForm.addEventListener('submit', function(event) {
   event.preventDefault();
@@ -30,8 +29,9 @@ loginForm.addEventListener('submit', function(event) {
   // Sign in the user with Firebase Authentication
   auth.signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
-      // Check if the user is an admin
       const user = userCredential.user;
+      
+      // Check if the user is an admin
       firestore.collection('gyms').doc(user.uid).get()
         .then((doc) => {
           if (doc.exists) {
@@ -39,13 +39,29 @@ loginForm.addEventListener('submit', function(event) {
             console.log('Admin logged in successfully:', user);
             window.location.href = "/html/Dashboard.html"; // Redirect to the admin dashboard
           } else {
-            // Member logged in successfully
-            console.log('Member logged in successfully:', user);
-            window.location.href = `/html/MemberData.html?userId=${user.uid}`; // Redirect to the member profile page
+            // Check if the user is a member
+            firestore.collection('members').doc(user.uid).get()
+              .then((doc) => {
+                if (doc.exists) {
+                  // Member logged in successfully
+                  console.log('Member logged in successfully:', user);
+                  window.location.href = `/html/MemberData.html?userId=${user.uid}`; // Redirect to the member profile page
+                } else {
+                  // User is not an admin or a member
+                  console.error('User is neither an admin nor a member');
+                  // Optionally display an error message to the user
+                  alert('You are not authorized to access this system.');
+                }
+              })
+              .catch((error) => {
+                console.error('Error checking user role (member):', error.message);
+                // Optionally display an error message to the user
+                alert('An error occurred. Please try again.');
+              });
           }
         })
         .catch((error) => {
-          console.error('Error checking user role:', error.message);
+          console.error('Error checking user role (admin):', error.message);
           // Optionally display an error message to the user
           alert('An error occurred. Please try again.');
         });
@@ -66,7 +82,23 @@ loginForm.addEventListener('submit', function(event) {
 
 
 
-//   // Get reference to the admin login form
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // Get reference to the admin login form
 // const adminLoginForm = document.getElementById('adminLoginForm');
 
 // // Add submit event listener to the admin login form
