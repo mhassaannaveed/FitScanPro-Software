@@ -37,11 +37,11 @@ loginForm.addEventListener('submit', function(event) {
           if (doc.exists) {
             // Admin logged in successfully
             console.log('Admin logged in successfully:', user);
-           window.location.href = "/html/Dashboard.html"; // Redirect to the admin dashboard
+            window.location.href = "/html/Dashboard.html"; // Redirect to the admin dashboard
           } else {
             // Member logged in successfully
             console.log('Member logged in successfully:', user);
-           window.location.href = `/html/MemberData.html?userId=${user.uid}`; // Redirect to the member profile page
+            window.location.href = `/html/MemberData.html?userId=${user.uid}`; // Redirect to the member profile page
           }
         })
         .catch((error) => {

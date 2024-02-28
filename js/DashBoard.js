@@ -34,7 +34,7 @@ logoutButton.addEventListener('click', function() {
 
 
 
-// showRecords.js
+
 
 // Get reference to the RECORD button
 function viewMemberRecords() {

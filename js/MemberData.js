@@ -18,12 +18,12 @@ const firebaseConfig = {
   
 const memberDataDiv = document.getElementById('MemberData');
 
+
 function showMember(memberId) {
-  firebase.auth().onAuthStateChanged(async function (user) {
+  auth.onAuthStateChanged(async function (user) {
     if (user) {
       try {
         const memberRef = db.collection('members')
-            .where('adminId', '==', user.uid)
             .where('id', '==', memberId);
 
         const querySnapshot = await memberRef.get();
@@ -41,7 +41,6 @@ function showMember(memberId) {
             <img src="${memberData.pictureUrl}" alt="Member Picture">
           `;
         } else {
-          
           memberDataDiv.innerHTML = "<p>Member not found.</p>";
         }
       } catch (error) {
