@@ -24,6 +24,7 @@ function showMember(memberId) {
     console.log(user)
     if (user) {
       try {
+        console.log(memberId)
         const memberRef = db.collection('members')
             .where('id', '==', memberId);
 
@@ -53,5 +54,5 @@ function showMember(memberId) {
 }
 
 const urlParams = new URLSearchParams(window.location.search);
-const memberId = urlParams.get('memberId');
+const memberId = urlParams.get('userId');
 showMember(memberId);
