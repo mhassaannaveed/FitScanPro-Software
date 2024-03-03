@@ -50,7 +50,6 @@ memberRegistrationForm.addEventListener('submit', async function (event) {
       const data = await response.json();
       throw new Error(data.error.message);
     }
-
     // Get user ID from the response
     const data = await response.json();
     const userId = data.localId;
