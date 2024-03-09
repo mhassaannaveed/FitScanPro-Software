@@ -1,0 +1,78 @@
+body {
+    background-image: url('../img/background3.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+.nav-items {
+    list-style: none;
+    color: #D61728;
+}
+
+::placeholder {
+    color: black;
+}
+
+.login-details {
+    text-decoration: none;
+    font-weight: bolder;
+    color: #D61728;
+}
+
+
+.login-btn {
+    background-color: #D61728;
+    border: 1px solid #D61728;
+    font-weight: bold;
+    color: black;
+    border-radius: 50px;
+}
+
+.login-btn:hover {
+    background-color: #ff2b3d;
+}
+
+.form-inputs {
+    background-color: white;
+    border: 3px solid #D61728;
+    color: black;
+    border-radius: 50px;
+}
+
+.form-container {
+    background-color: black;
+    border-radius: 50px;
+    box-shadow: 5px 20px 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+.form-headings {
+    color: #D61728;
+}
+
+.circle {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    border: 1px solid rgb(218, 218, 218);
+    box-shadow: 5px -10px 20px 0 rgba(0, 0, 0, 0.4);
+    margin-top: -55px;
+}
+
+.login-heading {
+    color: #D61728;
+    font-weight: bolder;
+}
+
+.lock-img {
+    height: 90%;
+    width: 90%;
+}
+
+.Signin{
+        text-decoration: none;
+        font-size: 20px;
+        color: #8f101a;
+}
