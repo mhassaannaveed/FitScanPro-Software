@@ -148,6 +148,9 @@
   padding: 0;
 }
 
+#record,#logoutButton{
+  cursor: pointer;
+}
 @media (max-width: 1199px) {
   .u-section-1 .u-sheet-1 {
     min-height: 634px;
