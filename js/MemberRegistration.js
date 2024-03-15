@@ -90,3 +90,15 @@ memberRegistrationForm.addEventListener('submit', async function (event) {
     alert('Error registering member. Please try again.');
   }
 });
+
+
+getImagePreview = (event) => {
+  let image = URL.createObjectURL(event.target.files[0])
+  let imagediv = document.getElementById('preview');
+  let newimage = document.createElement('img');
+  imagediv.innerHTML = "";
+  newimage.src = image;
+  newimage.height = "340";
+  newimage.width = "270";
+  imagediv.appendChild(newimage);
+}
