@@ -1,0 +1,16 @@
+.btn-circle {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+
+}
+.table > :not(caption) > * > * {
+    padding: 1.5rem 2.5rem;
+}
+
+.update{
+    background-color:dimgray;
+}
+a{
+    text-decoration: none;
+}

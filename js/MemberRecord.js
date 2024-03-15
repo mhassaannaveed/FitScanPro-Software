@@ -42,14 +42,14 @@ function displayMemberRecords() {
           querySnapshot.forEach((doc) => {
             const member = doc.data();
             const row = `
-            <tr>
-              <td>${index}</td>
-              <td>${member.name}</td>
-              <td>${member.age}</td>
-              <td>
-                <button onclick="deleteMember('${doc.id}')">Delete</button>
-                <button onclick="showMember('${doc.id}')">Show</button>
-                <button onclick="updateMember('${doc.id}')">Update</button>
+            <tr class="border-bottom">
+              <td class="text-center">${index}</td>
+              <td class="text-center">${member.age}</td>
+              <td class="text-center">${member.name}</td>
+              <td class="text-center">
+                <button class="mx-1 btn text-danger border border-danger" onclick="deleteMember('${doc.id}')">Delete</button>
+                <button class="mx-1 btn text-success border border-success" onclick="showMember('${doc.id}')">Show</button>
+                <button class="mx-1 btn text-secondary border border-secondary" onclick="updateMember('${doc.id}')">Update</button>
               </td>
             </tr>
           `;
