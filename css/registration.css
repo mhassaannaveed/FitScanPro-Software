@@ -13,6 +13,12 @@ body {
     border: 5px solid #D61728;
     box-sizing: border-box;
 }
+#imgContainer{
+    height: 350px;
+    width: 315px;
+    border: 5px solid #D61728;
+    box-sizing: border-box; 
+}
 
 .form-heading {
     color: #D61728;

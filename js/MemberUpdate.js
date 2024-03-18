@@ -14,12 +14,8 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const storage = firebase.storage();
 
-
 // Get reference to the update form
 const updateForm = document.getElementById('updateForm');
-
-
-
 
 // Function to fetch and populate member details in the form
 function populateMemberDetails(memberId) {
@@ -42,35 +38,13 @@ function populateMemberDetails(memberId) {
                 updateForm.email.value = member.email;
                 updateForm.image.src = member.pictureUrl;
 
+                updateForm.image.height = "340"
+                updateForm.image.width = "305"
 
             }
             else {
                 console.error('No such member document found.');
             }
-
-
-            // Fetch member details from Firestore
-            // const gymRef = db.collection('gyms').doc(user?.uid);
-
-            // gymRef.collection('members').doc(memberId).get()
-            //     .then((doc) => {
-            //         if (doc.exists) {
-            //             const member = doc.data();
-            //             console.log(member);
-            //             // Populate form fields with member details
-            //             updateForm.name.value = member.name;
-            //             updateForm.age.value = member.age;
-            //             updateForm.email.value = member.email;
-            //             updateForm.image.src = member.pictureUrl;
-
-            //             // Populate other fields as needed
-            //         } else {
-            //             console.error('No such member document found.');
-            //         }
-            //     })
-            //     .catch((error) => {
-            //         console.error('Error fetching member details:', error);
-            //     });
         }
         else {
             console.log('not found anything')
@@ -87,40 +61,31 @@ updateForm.addEventListener('submit', async function (event) {
     event.preventDefault(); // Prevent default form submission
 
     // Get updated values from the form
-
     const updatedName = updateForm.elements.name.value;
     const updatedAge = updateForm.elements.age.value;
     const updateEmail = updateForm.elements.email.value;
     const updateImage = updateForm.elements.picture.files[0];
-
-
-
+    
     const memberRef = db.collection('members')
-        .where('adminId', '==', firebase.auth().currentUser.uid)
-        .where('id', '==', memberId);
-
+    .where('adminId', '==', firebase.auth().currentUser.uid)
+    .where('id', '==', memberId);
+    
     const querySnapshot = await memberRef.get();
-
+    
     if (querySnapshot.empty) return alert("no member to update")
-
+    
     if (updateImage) {
-
-
         const pictureRef = storage.ref().child('member-profile-pictures/' + updateImage.name);
         pictureRef.put(updateImage)
-            .then(snapshot => snapshot.ref.getDownloadURL()) // Get download URL after upload
-            .then(async downloadURL => {
-
-                const doc = querySnapshot.docs[0];
-
+        .then(snapshot => snapshot.ref.getDownloadURL()) // Get download URL after upload
+        .then(async downloadURL => {
+            const doc = querySnapshot.docs[0];
                 return db.collection('members').doc(doc.id).update({
                     name: updatedName,
                     age: updatedAge,
                     email: updateEmail,
                     pictureUrl: downloadURL,
                 })
-
-
             })
             .then(() => {
                 console.log('Member record updated successfully');
@@ -131,7 +96,6 @@ updateForm.addEventListener('submit', async function (event) {
                 console.error('Error updating member record:', error);
             });
     } else {
-
         const doc = querySnapshot.docs[0];
         db.collection('members').doc(doc.id).update({
             name: updatedName,
@@ -139,10 +103,7 @@ updateForm.addEventListener('submit', async function (event) {
             email: updateEmail,
 
         })
-
         return alert("updated!")
-
-
     }
 });
 
@@ -152,3 +113,8 @@ const memberId = urlParams.get('memberId');
 populateMemberDetails(memberId)
 
 
+imageCheck = (event) => {
+    let image = URL.createObjectURL(event.target.files[0]);
+    let imageDiv = document.getElementById('image');
+    imageDiv.src = image;
+}
