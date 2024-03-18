@@ -22,12 +22,10 @@ function showMember(memberId) {
   firebase.auth().onAuthStateChanged(async function (user) {
     if (user) {
       try {
-
     let mem_reg = document.getElementById('member_regno');
     let mem_name = document.getElementById('member_name');
     let mem_age = document.getElementById('member_age');
     let mem_email = document.getElementById('member_email');
-    let mem_gender = document.getElementById('member_gender');
     let mem_contact = document.getElementById('member_num');
     let mem_bmi = document.getElementById('member_bmi');
     let mem_image = document.getElementById('image_container');
