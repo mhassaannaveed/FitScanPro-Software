@@ -35,11 +35,14 @@ function populateMemberDetails(memberId) {
 
                 updateForm.name.value = member.name;
                 updateForm.age.value = member.age;
+                updateForm.regno.value = member.rfid;
                 updateForm.email.value = member.email;
+                updateForm.contact.value = member.phoneNumber;
+                updateForm.password.value = member.password;
                 updateForm.image.src = member.pictureUrl;
 
                 updateForm.image.height = "340"
-                updateForm.image.width = "305"
+                updateForm.image.width = "270"
 
             }
             else {
