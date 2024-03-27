@@ -69,8 +69,12 @@ memberRegistrationForm.addEventListener('submit', async function (event) {
       console.error('Admin not authenticated or gym ID not found');
       return;
     }
+    
+    await firestore.collection('bmiCollection').doc(rfid).set({
+      bmi:[]
+    });
 
-    // Store member information in Firestore
+    //Store member information in Firestore
     await firestore.collection('members').doc(userId).set({
       id: userId,
       name: name,

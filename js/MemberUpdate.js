@@ -62,15 +62,17 @@ updateForm.addEventListener('submit', async function (event) {
     event.preventDefault(); // Prevent default form submission
 
     // Get updated values from the form
+    const updateRfid = updateForm.elements.regno.value
     const updatedName = updateForm.elements.name.value;
     const updatedAge = updateForm.elements.age.value;
-    const updateEmail = updateForm.elements.email.value;
+    const updatedContact = updateForm.elements.contact.value;
     const updateImage = updateForm.elements.picture.files[0];
+    const updatedPassword = updateForm.elements.password.value;
     
     const memberRef = db.collection('members')
     .where('adminId', '==', firebase.auth().currentUser.uid)
     .where('id', '==', memberId);
-    
+  
     const querySnapshot = await memberRef.get();
     
     if (querySnapshot.empty) return alert("no member to update")
@@ -84,7 +86,7 @@ updateForm.addEventListener('submit', async function (event) {
                 return db.collection('members').doc(doc.id).update({
                     name: updatedName,
                     age: updatedAge,
-                    email: updateEmail,
+                    phoneNumber:updatedContact,
                     pictureUrl: downloadURL,
                 })
             })
@@ -96,12 +98,12 @@ updateForm.addEventListener('submit', async function (event) {
             .catch((error) => {
                 console.error('Error updating member record:', error);
             });
-    } else {
+    } else{
         const doc = querySnapshot.docs[0];
         db.collection('members').doc(doc.id).update({
             name: updatedName,
             age: updatedAge,
-            email: updateEmail,
+            phoneNumber:updatedContact,
         })
         return alert("updated!")
     }
