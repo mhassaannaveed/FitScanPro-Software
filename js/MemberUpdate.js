@@ -29,21 +29,17 @@ function populateMemberDetails(memberId) {
 
             const querySnapshot = await memberRef.get()
             if (!querySnapshot.empty) {
-
                 const doc = querySnapshot.docs[0];
                 const member = doc.data();
-
                 updateForm.name.value = member.name;
                 updateForm.age.value = member.age;
                 updateForm.regno.value = member.rfid;
                 updateForm.email.value = member.email;
                 updateForm.contact.value = member.phoneNumber;
-                updateForm.password.value = member.password;
+                updateForm.gender.value = member.gender;
                 updateForm.image.src = member.pictureUrl;
-
                 updateForm.image.height = "340"
                 updateForm.image.width = "270"
- 
             }
             else {
                 console.error('No such member document found.');
@@ -67,16 +63,13 @@ updateForm.addEventListener('submit', async function (event) {
     const updatedAge = updateForm.elements.age.value;
     const updatedContact = updateForm.elements.contact.value;
     const updateImage = updateForm.elements.picture.files[0];
-    const updatedPassword = updateForm.elements.password.value;
     
     const memberRef = db.collection('members')
     .where('adminId', '==', firebase.auth().currentUser.uid)
     .where('id', '==', memberId);
   
     const querySnapshot = await memberRef.get();
-    
     if (querySnapshot.empty) return alert("no member to update")
-    
     if (updateImage) {
         const pictureRef = storage.ref().child('member-profile-pictures/' + updateImage.name);
         pictureRef.put(updateImage)
@@ -113,7 +106,6 @@ updateForm.addEventListener('submit', async function (event) {
 const urlParams = new URLSearchParams(window.location.search);
 const memberId = urlParams.get('memberId');
 populateMemberDetails(memberId)
-
 
 imageCheck = (event) => {
     let image = URL.createObjectURL(event.target.files[0]);

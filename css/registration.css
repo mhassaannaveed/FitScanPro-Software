@@ -45,3 +45,12 @@ body {
     background-color: #D61728;
     color: black;
 }
+
+.form-control{
+    background-color: black;
+    color: white;
+}
+.form-controls{
+    background-color: white;
+    border-radius: 5px;
+}

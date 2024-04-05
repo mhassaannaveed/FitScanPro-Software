@@ -42,34 +42,45 @@
             </center>
         </div> 
         <div class="right-side d-flex mt-5 w-75 ms-5 ">
-          <div class="left-form w-50 mt-5">
-              <label for="rfid" class="mb-0 mt-4 mx-5 form-headings fw-bold">RFID</label>
-              <input class="w-75 p-3 mx-5 mt-1 form-control" type="text" id="rfid" required
-                  placeholder="Enter Reg no">
-
-              <label for="name" class="mb-0 mt-4 mx-5 form-headings fw-bold">Name</label>
-              <input class="w-75 p-3 mx-5 mt-1 form-control" type="text" id="name" required
+          <div class="left-form w-100 mt-4">
+            <div class="d-flex mt-1 justify-content-between mx-5">
+                <label for="rfid" class="mb-0 mt-3 form-headings fw-bold">RFID:</label>
+                <input class="w-75 p-2 mt-1 form-control" type="text" id="rfid" required
+                  placeholder="Enter RFID">
+            </div>
+            <div class="d-flex mt-3 justify-content-between mx-5">    
+                <label for="name" class="mb-0 mt-3 form-headings fw-bold">Name:</label>
+                <input class="w-75 p-2 mt-1 form-control" type="text" id="name" required
                   placeholder="Enter your name">
-
-              <label for="email" class="mb-0 mt-4 mx-5 form-headings fw-bold">Email</label>
-              <input class="w-75 p-3 mx-5 mt-1 form-control" type="email" id="email" required
-                  placeholder="Enter your Email">
-          </div>
-
-          <div class="right-form w-50 mt-5">
-              <label for="age" class="mb-0 mt-4 mx-5 form-headings fw-bold">Age</label>
-              <input class="w-75 p-3 mt-1 mx-5 form-control" type="text" id="age" required
-                  placeholder="Enter your Age">
-
-              <label for="password" class="mb-0 mt-4 mx-5 form-headings fw-bold">Password</label>
-              <input class="w-75 p-3 mt-1 mx-5 form-control" type="password" id="password" required
-                  placeholder="Enter your Password">    
-
-              <label for="phoneNumber" class="mb-0 mx-5 mt-4 form-headings fw-bold">Contact No</label>
-              <input class="w-75 mx-5 p-3 mt-1 form-control" type="tel" id="phoneNumber" required
-                  placeholder="Enter your Phone">
-          </div>
-      </div>
+            </div>      
+            <div class="d-flex mt-3 justify-content-between mx-5">
+                <label for="email" class="mb-0 mt-3 form-headings fw-bold">Email:</label>
+                <input class="w-75 p-2 mt-1 form-control" type="email" id="email" required
+                placeholder="Enter your Email">
+            </div>
+            <div class="d-flex mt-3 justify-content-between mx-5">      
+                <label for="gender" class="mb-0 mt-3 form-headings fw-bold">Gender:</label>
+                <select name="gender" id="gender" class="w-75 p-2 mt-1 form-control" required>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select>
+            </div>      
+            <div class="d-flex mt-3 justify-content-between mx-5">      
+                <label for="age" class="mb-0 mt-3 form-headings fw-bold">Age:</label>
+                <input class="w-75 p-2 mt-1 form-control" type="text" id="age" required
+                placeholder="Enter your Age">
+            </div>
+            <div class="d-flex mt-3 justify-content-between mx-5">      
+                <label for="password" class="mb-0 mt-3 form-headings fw-bold">Password:</label>
+                <input class="w-75 p-2 mt-1 form-control" type="password" id="password" required
+                placeholder="Enter your Password">    
+            </div>
+            <div class="d-flex mt-3 justify-content-between mx-5">        
+                  <label for="phoneNumber" class="mb-0 mt-3 form-headings fw-bold">Contact No:</label>
+                  <input class="w-75 p-2 mt-1 form-control ms-5" type="tel" id="phoneNumber" required
+                    placeholder="Enter your Phone">
+            </div>        
+        </div>
   </div>
 </div>
 

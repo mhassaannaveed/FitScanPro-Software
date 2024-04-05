@@ -29,6 +29,7 @@ function showMember(memberId) {
         let mem_age = document.getElementById('member_age');
         let mem_email = document.getElementById('member_email');
         let mem_contact = document.getElementById('member_num');
+        let mem_gen = document.getElementById('member_gender')
         let mem_bmi = document.getElementById('member_bmi');
         let mem_image = document.getElementById('image_container');
         console.log(memberId)
@@ -44,6 +45,7 @@ function showMember(memberId) {
           mem_reg.innerText = memberData.rfid;
           mem_name.innerText = memberData.name;
           mem_age.innerText = memberData.age;
+          mem_gen.innerText = memberData.gender
           mem_email.innerText = memberData.email;
           mem_contact.innerText = memberData.phoneNumber;
           mem_image.innerHTML = `<img class='card-img' src='${memberData.pictureUrl}' /> ` 
@@ -91,3 +93,37 @@ const createChart = () => {
 const urlParams = new URLSearchParams(window.location.search);
 const memberId = urlParams.get('userId');
 showMember(memberId);
+
+// Get reference to the logout button
+const logoutButton = document.getElementById('logoutButton');
+
+// Add event listener to the logout button
+logoutButton.addEventListener('click', function() {
+  // Sign out the current user
+  firebase.auth().signOut().then(function() {
+    // Sign-out successful.
+    console.log('User signed out successfully.');
+    // Redirect the user to the login page or perform any other action
+    window.location.href = "/html/AdminLogin.html";
+  }).catch(function(error) {
+    // An error happened.
+    console.error('Error signing out:', error.message);
+  });
+});
+
+
+const changePasswordButton = document.getElementById('changePassword');
+
+changePasswordButton.addEventListener('click', () => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    const userId = user.uid;
+    // Redirect to the change password page with user info as URL parameters
+    window.location.href = `/html/ResetPassword.html?userId=${userId}`;
+  } else {
+    console.error('User not logged in.');
+    alert('User not logged in. Please log in again.');
+    // Redirect to the login page
+    window.location.href = 'login.html';
+  }
+});

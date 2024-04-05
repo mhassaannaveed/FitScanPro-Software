@@ -24,12 +24,13 @@ memberRegistrationForm.addEventListener('submit', async function (event) {
   event.preventDefault();
 
   // Get values from form inputs
+  const rfid = document.getElementById('rfid').value;
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
+  const gender = document.getElementById('gender').value
   const age = document.getElementById('age').value;
-  const phoneNumber = document.getElementById('phoneNumber').value;
   const password = document.getElementById('password').value;
-  const rfid = document.getElementById('rfid').value;
+  const phoneNumber = document.getElementById('phoneNumber').value;
   const pictureFile = document.getElementById('picture').files[0];
 
   try {
@@ -77,14 +78,15 @@ memberRegistrationForm.addEventListener('submit', async function (event) {
     //Store member information in Firestore
     await firestore.collection('members').doc(userId).set({
       id: userId,
+      adminId: gymId,
+      rfid: rfid,
       name: name,
       email: email,
+      gender: gender,
       age: age,
-      phoneNumber: phoneNumber,
       password: password, 
-      rfid: rfid,
+      phoneNumber: phoneNumber,
       pictureUrl: pictureUrl,
-      adminId: gymId
     });
 
     console.log('Member registered successfully');

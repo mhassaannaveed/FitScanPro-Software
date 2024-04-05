@@ -27,6 +27,7 @@ function showMember(memberId) {
     let mem_age = document.getElementById('member_age');
     let mem_email = document.getElementById('member_email');
     let mem_contact = document.getElementById('member_num');
+    let mem_gen = document.getElementById('member_gender');
     let mem_bmi = document.getElementById('member_bmi');
     let mem_image = document.getElementById('image_container');
 
@@ -43,6 +44,7 @@ function showMember(memberId) {
           mem_reg.innerText = memberData.rfid;
           mem_name.innerText = memberData.name;
           mem_age.innerText = memberData.age;
+          mem_gen.innerText = memberData.gender
           mem_email.innerText = memberData.email;
           mem_contact.innerText = memberData.phoneNumber;
           mem_image.innerHTML = `<img class='card-img' src='${memberData.pictureUrl}' /> ` 
