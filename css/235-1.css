@@ -1,5 +1,5 @@
  .u-section-1 {
-  background-image: url("https://assets.nicepagecdn.com/d2cc3eaa/3972615/images/bg.jpg");
+  color: black;
   background-position: 50% 50%;
   min-height: 645px;
 }
@@ -9,6 +9,9 @@
   margin: 0 0 0 auto;
 }
 
+.u-body {
+  max-height: 100vh;
+}
 .u-section-1 .u-layout-cell-1 {
   min-height: 645px;
   --animation-custom_in-translate_x: -200px;
@@ -83,7 +86,7 @@
 }
 
 .u-section-1 .u-image-1 {
-  background-image: url("https://assets.nicepagecdn.com/d2cc3eaa/3972615/images/man-gym.jpg");
+  background-image: url("https://img.freepik.com/free-photo/3d-gym-equipment_23-2151114180.jpg?t=st=1714643843~exp=1714647443~hmac=7102124ba74b86afe13ac43b5fdf92b17504aeae00e02a32bd02c74bec8642b2&w=996");
   background-position: 100% 50%;
   min-height: 645px;
   --animation-custom_in-translate_x: 100px;

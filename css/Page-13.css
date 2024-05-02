@@ -1,6 +1,20 @@
  .u-section-1 {
-  background-image: url("/img/wdqfe-min.jpg");
-  background-position: 50% 50%;
+  background-image: url("../img/dash-bg-img.jpg");
+  background-position: center;
+  background-size: contain;
+}
+
+.u-pall{
+  margin-top: 10rem;
+  background-color: #ff2b3d;
+  border: 3px solid white;
+  border-radius: 20px;
+  color: white;
+  box-shadow: 5px 5px 20px 1px rgba(0, 0, 0, 0.4);
+}
+
+.u-pall:hover{
+  background-color: #d11b2b;
 }
 
 .u-section-1 .u-sheet-1 {
