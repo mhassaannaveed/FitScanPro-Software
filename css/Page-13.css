@@ -1,7 +1,7 @@
  .u-section-1 {
   background-image: url("../img/dash-bg-img.jpg");
   background-position: center;
-  background-size: contain;
+  background-size: cover;
 }
 
 .u-pall{
@@ -28,7 +28,7 @@
 
 .u-section-1 .u-repeater-1 {
   grid-template-columns: repeat(3, calc(33.3333% - 13.3333px));
-  min-height: 412px;
+  min-height: 600px;
   grid-gap: 20px;
 }
 

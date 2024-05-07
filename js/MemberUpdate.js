@@ -40,6 +40,7 @@ function populateMemberDetails(memberId) {
                 updateForm.image.src = member.pictureUrl;
                 updateForm.image.height = "340"
                 updateForm.image.width = "270"
+                updateForm.image.style.borderRadius = "15px";
             }
             else {
                 console.error('No such member document found.');

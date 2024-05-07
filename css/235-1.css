@@ -86,8 +86,8 @@
 }
 
 .u-section-1 .u-image-1 {
-  background-image: url("https://img.freepik.com/free-photo/3d-gym-equipment_23-2151114180.jpg?t=st=1714643843~exp=1714647443~hmac=7102124ba74b86afe13ac43b5fdf92b17504aeae00e02a32bd02c74bec8642b2&w=996");
-  background-position: 100% 50%;
+  background-image: url("/img/homeimage.jpeg");
+  background-position: 50% 50%;
   min-height: 645px;
   --animation-custom_in-translate_x: 100px;
   --animation-custom_in-translate_y: 0px;

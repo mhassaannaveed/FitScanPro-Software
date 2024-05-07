@@ -106,5 +106,6 @@ getImagePreview = (event) => {
   newimage.src = image;
   newimage.height = "340";
   newimage.width = "270";
+  newimage.style.borderRadius = "15px";
   imagediv.appendChild(newimage);
 }

@@ -42,9 +42,9 @@ function displayMemberRecords() {
           querySnapshot.forEach((doc) => {
             const member = doc.data();
             const row = `
-            <tr class="border-bottom">
+            <tr class="border-dark">
               <td class="text-center">${index}</td>
-              <td class="text-center">${member.age}</td>
+              <td class="text-center">${member.rfid}</td>
               <td class="text-center">${member.name}</td>
               <td class="text-center">
                 <button class="mx-1 btn text-danger border border-danger" onclick="deleteMember('${doc.id}')">Delete</button>

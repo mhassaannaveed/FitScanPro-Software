@@ -25,9 +25,9 @@
                     <div class="img-fluid" id="imgContainer">
                         <img src="" alt="" id="image" >
                     </div>
-                    <div class="d-flex  align-items-center">
+                    <div class="d-flex align-items-center">
                         <div class="form-group mt-4">
-                            <input type="file" name="picture" accept="image/*" class="form-controls" id="picture"
+                            <input type="file" name="picture" accept="image/*" class="form-control" id="picture"
                             onchange="imageCheck(event)">
                         </div>
                         <div class="form-group mt-4 text-center">
@@ -36,25 +36,31 @@
                 </div>
 
                 <div class="right-side d-flex mt-5 w-75 ms-5 ">
-                    <div class="left-form w-50 mt-3">
-                        <label for="reg" class="mb-0 mt-4 mx-5 form-headings fw-bold">Registration No</label>
-                        <input class="w-75 p-3 mx-5 mt-1 form-controls" type="text" name="regno" id="regno">
-    
-                        <label for="name" class="mb-0 mt-4 mx-5 form-headings fw-bold">Username</label>
-                        <input class="w-75 p-3 mx-5 mt-1 form-controls" type="text" name="name" id="name">
-    
-                        <label for="email" class="mb-0 mt-4 mx-5 form-headings fw-bold">Email</label>
-                        <input class="w-75 p-3 mx-5 mt-1 form-controls" type="email" name="email" id="email">
-                    </div>
-                    <div class="right-form w-50 mt-3">
-                        <label for="age" class="mb-0 mt-4 mx-5 form-headings fw-bold">Age</label>
-                        <input class="w-75 p-3 mt-1 mx-5 form-controls" type="text" name="" id="age">
-    
-                        <label for="contact" class="mb-0 mx-5 mt-4 form-headings fw-bold">Contact No</label>
-                        <input class="w-75 mx-5 p-3 mt-1 form-controls" type="tel" name="" id="contact">
-
-                        <label for="contact" class="mb-0 mx-5 mt-4 form-headings fw-bold">Gender</label>
-                        <input class="w-75 mx-5 p-3 mt-1 form-controls" type="text" name="" id="gender">
+                    <div class="left-form w-100 mt-4">
+                        <div class="d-flex mt-1 justify-content-between mx-5">
+                        <label for="reg" class="mb-0 mt-3 form-headings fw-bold">RFID:</label>
+                        <input class="w-75 p-2 mt-1 form-control text-dark" type="text" name="regno" id="regno">
+                        </div>
+                        <div class="d-flex mt-3 justify-content-between mx-5">
+                        <label for="name" class="mb-0 mt-3 form-headings fw-bold">Name:</label>
+                        <input class="w-75 p-2 mt-1 form-control text-dark" type="text" name="name" id="name">
+                        </div> 
+                        <div class="d-flex mt-3 justify-content-between mx-5">
+                        <label for="email" class="mb-0 mt-3 form-headings fw-bold">Email:</label>
+                        <input class="w-75 p-2 mt-1 form-control text-dark" type="email" name="email" id="email">
+                        </div>
+                        <div class="d-flex mt-3 justify-content-between mx-5"> 
+                        <label for="gender" class="mb-0 mt-3 form-headings fw-bold">Gender:</label>
+                        <input class="w-75 p-2 mt-1 form-control text-dark" type="text" name="" id="gender">
+                        </div>
+                        <div class="d-flex mt-3 justify-content-between mx-5">
+                        <label for="age" class="mb-0 mt-3 form-headings fw-bold">Age:</label>
+                        <input class="w-75 p-2 mt-1 form-control text-dark" type="text" name="" id="age">
+                        </div>
+                        <div class="d-flex mt-3 justify-content-between mx-5"> 
+                        <label for="contact" class="mb-0 mt-3 form-headings fw-bold">Contact No:</label>
+                        <input class="w-75 p-2 mt-1 form-control text-dark" type="tel" name="" id="contact">
+                        </div>
                     </div>
                 </div>
             </div>
