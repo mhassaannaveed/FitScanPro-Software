@@ -49,7 +49,7 @@ function showMember(memberId) {
           mem_email.innerText = memberData.email;
           mem_contact.innerText = memberData.phoneNumber;
           mem_image.innerHTML = `<img class='card-img' src='${memberData.pictureUrl}' /> ` 
-          createChart()
+          createChart(memberData?.rfid)
         } else {
           memberDataDiv.innerHTML = "<p>Member not found.</p>";
         }
@@ -62,15 +62,23 @@ function showMember(memberId) {
 }
 
 
-const createChart = () => {
-  const ctx = document.getElementById('myChart');
+const createChart = async (documentId) => {
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  try {
+    const docRef = db.collection('bmiCollection').doc(documentId);
+    const docSnapshot = await docRef.get();
 
-  const chartData = {
-      labels: labels,
-      datasets: [{
+    if (docSnapshot.exists) {
+      const bmiData = docSnapshot.data();
+  
+      const bmiValues = bmiData.bmi;
+
+      const ctx = document.getElementById('myChart');
+      const chartData = {
+        labels,
+        datasets: [{
           label: 'BMI Trend',
-          data: [44,55,66,33,55,33,44],
+          data: bmiValues,
           fill: false,
           borderColor: 'rgb(220, 53, 69)',
           pointBackgroundColor: 'rgb(220, 53, 69)',
@@ -78,15 +86,19 @@ const createChart = () => {
           pointColor: 'rgb(220, 53, 69)',
           pointStrokeColor: 'rgb(220, 53, 69)',
           tension: 0.01,
-       }],
-  };
-
-  const chartConfig = {
-      type: 'line',
-      data: chartData,
-  };
-
-  new Chart(ctx, chartConfig);
+        }],
+      };
+      const chartConfig = {
+        type: 'line',
+        data: chartData,
+      };
+      new Chart(ctx, chartConfig);
+    } else {
+      console.log('Document does not exist.');
+    }
+  } catch (error) {
+    console.error('Error fetching document:', error);
+  }
 };
 
 
