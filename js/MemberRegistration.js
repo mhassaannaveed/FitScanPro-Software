@@ -79,7 +79,7 @@ memberRegistrationForm.addEventListener('submit', async function (event) {
     await firestore.collection('members').doc(userId).set({
       id: userId,
       adminId: gymId,
-      rfid: rfid,
+      rfid: rfid?.trim(),
       name: name,
       email: email,
       gender: gender,
