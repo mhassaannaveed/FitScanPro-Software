@@ -28,6 +28,7 @@ memberRegistrationForm.addEventListener('submit', async function (event) {
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
   const gender = document.getElementById('gender').value
+  const medicalhistory = document.getElementById('medicalhistory').value
   const age = document.getElementById('age').value;
   const password = document.getElementById('password').value;
   const phoneNumber = document.getElementById('phoneNumber').value;
@@ -83,6 +84,7 @@ memberRegistrationForm.addEventListener('submit', async function (event) {
       name: name,
       email: email,
       gender: gender,
+      medicalhistory: medicalhistory,
       age: age,
       password: password, 
       phoneNumber: phoneNumber,
