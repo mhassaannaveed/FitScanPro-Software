@@ -84,23 +84,32 @@ updateForm.addEventListener("submit", async function (event) {
       alert("Member Record Updated with new image");
     } else {
       if (memberData.rfid !== updateRfid && updateRfid.trim() !== "") {
-        const docRef = db.collection("bmiCollection").doc(memberData.rfid);
+        let memberPrevRfid = memberData?.rfid?.trim();
+        let updatedRfid = updateRfid.trim();
+
+        const docRef = await db.collection("bmiCollection").doc(memberPrevRfid);
         const docSnapshot = await docRef.get();
+        const bmiData = docSnapshot.data();
 
         if (docSnapshot.exists) {
+          console.log("in snapshot");
           const bmiData = docSnapshot.data();
-          console.log(bmiData,'{data}')
+
           const bmiValues = bmiData.bmi;
-          const newMemberRef = db.collection("bmiCollection").doc(updateRfid);
+          const newMemberRef = db.collection("bmiCollection").doc(updatedRfid);
 
           await newMemberRef.set({
             bmi: bmiValues,
           });
 
-          await db.collection("bmiCollection").doc(memberData.rfid).delete();
+          await db.collection("members").doc(doc.id).update({
+            rfid: updateRfid,
+          });
+
+          await db.collection("bmiCollection").doc(memberPrevRfid).delete();
         }
       }
-
+   
       await db.collection("members").doc(doc.id).update({
         name: updatedName,
         age: updatedAge,
