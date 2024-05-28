@@ -67,9 +67,11 @@ const createChart = async (documentId) => {
   try {
     const docRef = db.collection('bmiCollection').doc(documentId);
     const docSnapshot = await docRef.get();
-
+  
+    console.log(docSnapshot)
     if (docSnapshot.exists) {
       const bmiData = docSnapshot.data();
+      console.log(bmiData)
   
       const bmiValues = bmiData.bmi;
 

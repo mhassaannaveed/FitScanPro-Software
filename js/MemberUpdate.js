@@ -95,11 +95,11 @@ updateForm.addEventListener("submit", async function (event) {
           console.log("in snapshot");
           const bmiData = docSnapshot.data();
 
-          const bmiValues = bmiData.bmi;
+          const bmiValues = bmiData.bmiEntries;
           const newMemberRef = db.collection("bmiCollection").doc(updatedRfid);
 
           await newMemberRef.set({
-            bmi: bmiValues,
+            bmiEntries: bmiValues,
           });
 
           await db.collection("members").doc(doc.id).update({
@@ -109,7 +109,7 @@ updateForm.addEventListener("submit", async function (event) {
           await db.collection("bmiCollection").doc(memberPrevRfid).delete();
         }
       }
-   
+
       await db.collection("members").doc(doc.id).update({
         name: updatedName,
         age: updatedAge,
