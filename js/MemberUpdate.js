@@ -28,7 +28,7 @@ function populateMemberDetails(memberId) {
         const doc = querySnapshot.docs[0];
         const member = doc.data();
         updateForm.name.value = member.name;
-        updateForm.age.value = member.age;
+        updateForm.dateOfBirth.value = member.dateOfBirth;
         updateForm.regno.value = member.rfid;
         updateForm.email.value = member.email;
         updateForm.contact.value = member.phoneNumber;
@@ -51,7 +51,7 @@ updateForm.addEventListener("submit", async function (event) {
 
   const updateRfid = updateForm.elements.regno.value;
   const updatedName = updateForm.elements.name.value;
-  const updatedAge = updateForm.elements.age.value;
+  const updatedDateOfBirth = updateForm.elements.dateOfBirth.value;
   const updatedContact = updateForm.elements.contact.value;
   const updateImage = updateForm.elements.picture.files[0];
 
@@ -76,7 +76,7 @@ updateForm.addEventListener("submit", async function (event) {
 
       await db.collection("members").doc(doc.id).update({
         name: updatedName,
-        age: updatedAge,
+        dateOfBirth: updatedDateOfBirth,
         phoneNumber: updatedContact,
         pictureUrl: downloadURL,
       });
@@ -89,7 +89,6 @@ updateForm.addEventListener("submit", async function (event) {
 
         const docRef = await db.collection("bmiCollection").doc(memberPrevRfid);
         const docSnapshot = await docRef.get();
-        const bmiData = docSnapshot.data();
 
         if (docSnapshot.exists) {
           console.log("in snapshot");
@@ -112,7 +111,7 @@ updateForm.addEventListener("submit", async function (event) {
 
       await db.collection("members").doc(doc.id).update({
         name: updatedName,
-        age: updatedAge,
+        dateOfBirth: updatedDateOfBirth,
         phoneNumber: updatedContact,
       });
 

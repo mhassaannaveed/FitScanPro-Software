@@ -14,6 +14,23 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 // Access Firebase Authentication
 
+function calculateAge(birthDate) {
+  const now = new Date();
+  const birth = new Date(birthDate);
+
+  let age = now.getFullYear() - birth.getFullYear();
+  const monthDiff = now.getMonth() - birth.getMonth();
+  const dayDiff = now.getDate() - birth.getDate();
+
+  console.log(age, monthDiff, dayDiff);
+
+  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+    age--;
+  }
+
+  return age;
+}
+
 const memberDetailsDiv = document.getElementById("memberProfile");
 
 function showMember(memberId) {
@@ -42,7 +59,7 @@ function showMember(memberId) {
           console.log("Member Data:", memberData);
           mem_reg.innerText = memberData.rfid;
           mem_name.innerText = memberData.name;
-          mem_age.innerText = memberData.age;
+          mem_age.innerText = calculateAge(memberData.dateOfBirth);
           mem_gen.innerText = memberData.gender;
           mem_email.innerText = memberData.email;
           mem_contact.innerText = memberData.phoneNumber;
@@ -78,10 +95,12 @@ const createChart = async (documentId) => {
       console.log(bmiData);
 
       const bmiValues = bmiData?.bmiEntries?.map((entr) => entr.bmi);
-      const timeStamp = bmiData?.bmiEntries?.map((entr) => new Date(entr.timeStamp).toLocaleDateString());
+      const timeStamp = bmiData?.bmiEntries?.map((entr) =>
+        new Date(entr.timeStamp).toLocaleDateString()
+      );
       const ctx = document.getElementById("myChart");
       const chartData = {
-        labels:timeStamp,
+        labels: timeStamp,
         datasets: [
           {
             label: "BMI Trend",

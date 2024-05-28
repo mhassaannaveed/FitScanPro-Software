@@ -6,7 +6,7 @@ const firebaseConfig = {
   storageBucket: "final-year-project-6e437.appspot.com",
   messagingSenderId: "606296370149",
   appId: "1:606296370149:web:567cce8e5c9e8c7f791d0c",
-  measurementId: "G-CMVRYXQWEX"
+  measurementId: "G-CMVRYXQWEX",
 };
 firebase.initializeApp(firebaseConfig);
 
@@ -17,35 +17,40 @@ const auth = firebase.auth();
 const storage = firebase.storage();
 
 // Get reference to the member registration form
-const memberRegistrationForm = document.getElementById('memberRegistrationForm');
+const memberRegistrationForm = document.getElementById(
+  "memberRegistrationForm"
+);
 
 // Add submit event listener to the member registration form
-memberRegistrationForm.addEventListener('submit', async function (event) {
+memberRegistrationForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
   // Get values from form inputs
-  const rfid = document.getElementById('rfid').value;
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const gender = document.getElementById('gender').value
-  const age = document.getElementById('age').value;
-  const password = document.getElementById('password').value;
-  const phoneNumber = document.getElementById('phoneNumber').value;
-  const pictureFile = document.getElementById('picture').files[0];
+  const rfid = document.getElementById("rfid").value;
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const gender = document.getElementById("gender").value;
+  const dateOfBirth = document.getElementById("dateOfBirth").value;
+  const password = document.getElementById("password").value;
+  const phoneNumber = document.getElementById("phoneNumber").value;
+  const pictureFile = document.getElementById("picture").files[0];
 
   try {
     // Create user account with email and password using Firebase Auth REST API
-    const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseConfig.apiKey}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        returnSecureToken: true,
-      }),
-    });
+    const response = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseConfig.apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          returnSecureToken: true,
+        }),
+      }
+    );
 
     if (!response.ok) {
       const data = await response.json();
@@ -56,7 +61,9 @@ memberRegistrationForm.addEventListener('submit', async function (event) {
     const userId = data.localId;
 
     // Upload picture to Firebase Storage
-    const pictureRef = storage.ref().child('member-profile-pictures/' + pictureFile.name);
+    const pictureRef = storage
+      .ref()
+      .child("member-profile-pictures/" + pictureFile.name);
     await pictureRef.put(pictureFile);
     const pictureUrl = await pictureRef.getDownloadURL();
 
@@ -67,45 +74,44 @@ memberRegistrationForm.addEventListener('submit', async function (event) {
     const gymId = user ? user.uid : null;
 
     if (!gymId) {
-      console.error('Admin not authenticated or gym ID not found');
+      console.error("Admin not authenticated or gym ID not found");
       return;
     }
-    
-    await firestore.collection('bmiCollection').doc(rfid).set({
-      bmi:[]
+
+    await firestore.collection("bmiCollection").doc(rfid).set({
+      bmi: [],
     });
 
     //Store member information in Firestore
-    await firestore.collection('members').doc(userId).set({
+    await firestore.collection("members").doc(userId).set({
       id: userId,
       adminId: gymId,
       rfid: rfid?.trim(),
-      name: name,
-      email: email,
-      gender: gender,
-      age: age,
-      password: password, 
-      phoneNumber: phoneNumber,
-      pictureUrl: pictureUrl,
+      name,
+      email,
+      gender,
+      dateOfBirth,
+      password,
+      phoneNumber,
+      pictureUrl,
     });
 
-    console.log('Member registered successfully');
-    alert('Member registered successfully!');
+    console.log("Member registered successfully");
+    alert("Member registered successfully!");
   } catch (error) {
-    console.error('Error registering member:', error.message);
-    alert('Error registering member. Please try again.');
+    console.error("Error registering member:", error.message);
+    alert("Error registering member. Please try again.");
   }
 });
 
-
 getImagePreview = (event) => {
-  let image = URL.createObjectURL(event.target.files[0])
-  let imagediv = document.getElementById('preview');
-  let newimage = document.createElement('img');
+  let image = URL.createObjectURL(event.target.files[0]);
+  let imagediv = document.getElementById("preview");
+  let newimage = document.createElement("img");
   imagediv.innerHTML = "";
   newimage.src = image;
   newimage.height = "340";
   newimage.width = "270";
   newimage.style.borderRadius = "15px";
   imagediv.appendChild(newimage);
-}
+};
