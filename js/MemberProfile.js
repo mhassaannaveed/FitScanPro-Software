@@ -83,7 +83,7 @@ const createChart = async (documentId) => {
             pointBorderColor: "rgb(220, 53, 69)",
             pointColor: "rgb(220, 53, 69)",
             pointStrokeColor: "rgb(220, 53, 69)",
-            tension: 0.01,
+            tension: 0.3,
           },
         ],
       };
