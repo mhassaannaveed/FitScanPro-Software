@@ -30,6 +30,7 @@ memberRegistrationForm.addEventListener("submit", async function (event) {
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const gender = document.getElementById("gender").value;
+  const medicalhistory = document.getElementById("medicalhistory").value;
   const dateOfBirth = document.getElementById("dateOfBirth").value;
   const password = document.getElementById("password").value;
   const phoneNumber = document.getElementById("phoneNumber").value;
@@ -87,13 +88,15 @@ memberRegistrationForm.addEventListener("submit", async function (event) {
       id: userId,
       adminId: gymId,
       rfid: rfid?.trim(),
-      name,
-      email,
-      gender,
+
+      name: name,
+      email: email,
+      gender: gender,
+      medicalhistory: medicalhistory,
       dateOfBirth,
-      password,
-      phoneNumber,
-      pictureUrl,
+      password: password,
+      phoneNumber: phoneNumber,
+      pictureUrl: pictureUrl,
     });
 
     console.log("Member registered successfully");
