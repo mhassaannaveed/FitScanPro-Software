@@ -94,6 +94,8 @@ updateForm.addEventListener("submit", async function (event) {
           console.log("in snapshot");
           const bmiData = docSnapshot.data();
 
+          console.log(bmiData,'BMI_DATA')
+
           const bmiValues = bmiData.bmiEntries;
           const newMemberRef = db.collection("bmiCollection").doc(updatedRfid);
 

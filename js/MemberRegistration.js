@@ -21,6 +21,23 @@ const memberRegistrationForm = document.getElementById(
   "memberRegistrationForm"
 );
 
+function calculateAge(birthDate) {
+  const now = new Date();
+  const birth = new Date(birthDate);
+
+  let age = now.getFullYear() - birth.getFullYear();
+  const monthDiff = now.getMonth() - birth.getMonth();
+  const dayDiff = now.getDate() - birth.getDate();
+
+  console.log(age, monthDiff, dayDiff);
+
+  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+    age--;
+  }
+
+  return age;
+}
+
 // Add submit event listener to the member registration form
 memberRegistrationForm.addEventListener("submit", async function (event) {
   event.preventDefault();
@@ -35,6 +52,14 @@ memberRegistrationForm.addEventListener("submit", async function (event) {
   const password = document.getElementById("password").value;
   const phoneNumber = document.getElementById("phoneNumber").value;
   const pictureFile = document.getElementById("picture").files[0];
+
+  const age = calculateAge(dateOfBirth);
+  const minimumAge = 18;
+
+  if (age < minimumAge) {
+    alert(`Member must be at least ${minimumAge} years old to register.`);
+    return;
+  }
 
   try {
     // Create user account with email and password using Firebase Auth REST API
@@ -80,16 +105,14 @@ memberRegistrationForm.addEventListener("submit", async function (event) {
     }
 
     await firestore.collection("bmiCollection").doc(rfid).set({
-      bmi: [],
+      bmiEntries: [],
     });
 
-    //Store member information in Firestore
     await firestore.collection("members").doc(userId).set({
       id: userId,
       adminId: gymId,
       rfid: rfid?.trim(),
-
-      name: name,
+      name,
       email: email,
       gender: gender,
       medicalhistory: medicalhistory,
