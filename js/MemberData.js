@@ -30,8 +30,9 @@ function showMember(memberId) {
         let mem_email = document.getElementById('member_email');
         let mem_contact = document.getElementById('member_num');
         let mem_gen = document.getElementById('member_gender')
-        let mem_bmi = document.getElementById('member_bmi');
+        let mem_medhistory = document.getElementById('member_medhistory');
         let mem_image = document.getElementById('image_container');
+        
         console.log(memberId)
         const memberRef = db.collection('members')
             .where('id', '==', memberId);
@@ -48,6 +49,7 @@ function showMember(memberId) {
           mem_gen.innerText = memberData.gender
           mem_email.innerText = memberData.email;
           mem_contact.innerText = memberData.phoneNumber;
+          mem_medhistory.innerText = memberData.medicalhistory
           mem_image.innerHTML = `<img class='card-img' src='${memberData.pictureUrl}' /> ` 
           createChart(memberData?.rfid)
         } else {
@@ -63,23 +65,46 @@ function showMember(memberId) {
 
 
 const createChart = async (documentId) => {
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const labels = [
+    'January', 
+    'February', 
+    'March', 
+    'April', 
+    'May', 
+    'June', 
+    'July'];
   try {
     const docRef = db.collection('bmiCollection').doc(documentId);
     const docSnapshot = await docRef.get();
-  
+    let mem_fitlevel = document.getElementById('member_fitlevel')
+    let mem_weight = document.getElementById('member_weight')
+    let mem_height = document.getElementById('member_height')
+    let mem_BMI = document.getElementById('member_BMI')
+    
     console.log(docSnapshot)
     if (docSnapshot.exists) {
       const bmiData = docSnapshot.data();
-      console.log(bmiData)
+      length = bmiData.bmiEntries.length - 1;
+      const heightcm = bmiData.bmiEntries[length].height;
+      const heightfeet = heightcm*0.0328;
+
+      
+      mem_fitlevel.innerText = bmiData.bmiEntries[length].bmiCategory
+      mem_weight.innerText = bmiData.bmiEntries[length].weight
+      mem_height.innerText = heightfeet.toFixed(2)
+      mem_BMI.innerText = bmiData.bmiEntries[length].bmi
+        
   
-      const bmiValues = bmiData.bmi;
+      const bmiValues = bmiData?.bmiEntries?.map((entr) => entr.bmi);
+      const timeStamp = bmiData?.bmiEntries?.map((entr) =>
+        new Date(entr.timeStamp).toLocaleDateString()
+      );
 
       const ctx = document.getElementById('myChart');
       const chartData = {
-        labels,
+        labels: timeStamp,
         datasets: [{
-          label: 'BMI Trend',
+          labels: timeStamp,
           data: bmiValues,
           fill: false,
           borderColor: 'rgb(220, 53, 69)',
@@ -87,7 +112,7 @@ const createChart = async (documentId) => {
           pointBorderColor: 'rgb(220, 53, 69)',
           pointColor: 'rgb(220, 53, 69)',
           pointStrokeColor: 'rgb(220, 53, 69)',
-          tension: 0.2,
+          tension: 0.3,
         }],
       };
       const chartConfig = {
@@ -141,3 +166,4 @@ changePasswordButton.addEventListener('click', () => {
     window.location.href = 'login.html';
   }
 });
+

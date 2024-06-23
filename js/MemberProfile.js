@@ -103,7 +103,7 @@ const createChart = async (documentId) => {
         labels: timeStamp,
         datasets: [
           {
-            label: "BMI Trend",
+            label: timeStamp,
             data: bmiValues,
             fill: false,
             borderColor: "rgb(220, 53, 69)",
