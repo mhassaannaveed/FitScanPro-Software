@@ -14,27 +14,17 @@ This project leverages the following technologies:
 - **Bootstrap**: For responsive design and grid layout.
 - **Firebase**: For database
 
-## Live Demo
-
-Check out the live version of the website [here](http://yourwebsite.com).
 
 ## Screenshots
 
-### Home Page
-
-![Home Page](screenshots/home-page.png)
-
-### About Page
-
-![About Page](screenshots/about-page.png)
-
-### Services Page
-
-![Services Page](screenshots/services-page.png)
-
-### Contact Page
-
-![Contact Page](screenshots/contact-page.png)
+![](screenshots/1.jpg)
+![](screenshots/2.jpg)
+![](screenshots/3.jpg)
+![](screenshots/4.jpg)
+![](screenshots/5.jpg)
+![](screenshots/6.jpg)
+![](screenshots/7.jpg)
+![](screenshots/8.jpg)
 
 ## Installation
 
