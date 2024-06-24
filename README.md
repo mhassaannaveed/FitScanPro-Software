@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to the Project Name repository! This project showcases a modern, responsive website design featuring several key pages. Each page is meticulously crafted to provide an engaging user experience. This README will guide you through the project structure, the technologies used, and provide screenshots of the design.
+Welcome to the FitScanPro App repository! This project showcases our Final Year Project website, a modern, responsive website design featuring several key pages. Each page is meticulously crafted to provide an engaging user experience. This README will guide you through the project structure, the technologies used, and provide screenshots of the design.
 
 ## Technologies
 
