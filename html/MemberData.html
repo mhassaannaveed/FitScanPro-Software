@@ -86,19 +86,41 @@
             <h6 class="text-danger mb-0 fw-bold text-center">BMI</h6>
             <p id="member_BMI" class="text-dark text-center"></p>  
           </div>  
-      </div>
-      
+      </div>  
     </div>
     
     <div class="my-5">
       <div class="d-flex justify-content-center">
-        <button class="btn btn-danger mx-1" id="generateButton">
+        <button onclick="callAPI()" class="btn btn-danger mx-1" id="generateButton">
           Generate
         </button>
       </div>
       <div class="container mt-3" id="predictedValues"></div>
     </div>
     
+    <div class="my-5">
+      <div class="d-flex justify-content-evenly" id="data">
+          <div class="shadow-lg bg-light rounded-border px-4">
+            <h6 class="text-danger mb-0 fw-bold text-center ">Diet Type</h6>
+            <p id="diet" class="text-dark text-center"></p>
+          </div>
+          <div class="shadow-lg bg-light rounded-border px-4">
+            <h6 class="text-danger mb-0 fw-bold text-center">Exercise</h6>
+            <p id="exercise" class="text-dark text-center"></p>
+          </div>
+          <div class="shadow-lg bg-light rounded-border px-4">
+            <h6 class="text-danger mb-0 fw-bold text-center">BMR</h6>
+            <p id="bmr" class="text-dark text-center"></p>
+          </div>
+          <div class="shadow-lg bg-light rounded-border px-4">
+            <h6 class="text-danger mb-0 fw-bold text-center">Daily Calories Intake</h6>
+            <p id="calories" class="text-dark text-center"></p>
+          </div>  
+      </div>  
+    </div>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/all.js"></script>
     <script src="/js/bootstrap.bundle.js"></script>

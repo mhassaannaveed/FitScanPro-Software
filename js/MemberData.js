@@ -167,3 +167,66 @@ changePasswordButton.addEventListener('click', () => {
   }
 });
 
+async function callAPI() {
+  console.log('hello')
+  try {
+    // Extract memberId from the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const memberId = urlParams.get('userId');
+    
+    if (!memberId) {
+      throw new Error('Member ID not found in URL parameters.');
+    }
+
+    // Fetch member details from Firebase
+    const memberRef = db.collection('members').where('id', '==', memberId);
+    const memberSnapshot = await memberRef.get();
+    if (memberSnapshot.empty) {
+      throw new Error('Member not found.');
+    }
+    const memberData = memberSnapshot.docs[0].data();
+
+    // Fetch BMI and fitness level details from Firebase
+    const bmiRef = db.collection('bmiCollection').doc(memberData.rfid);
+    const bmiSnapshot = await bmiRef.get();
+    if (!bmiSnapshot.exists) {
+      throw new Error('BMI data not found.');
+    }
+    const bmiData = bmiSnapshot.data();
+    const latestBmiEntry = bmiData.bmiEntries[bmiData.bmiEntries.length - 1];
+
+    // Construct the request body
+    const requestBody = {
+      Age: [memberData.age],
+      Height: [latestBmiEntry.height*0.0328],
+      Weight: [latestBmiEntry.weight],
+      Gender: [memberData.gender],
+      BMI: [latestBmiEntry.bmi],
+      Fitness_Level: [latestBmiEntry.bmiCategory],
+      Medical_History: [memberData.medicalhistory]
+    };
+   console.log(requestBody)
+    // Call the API
+    const response = await fetch('http://127.0.0.1:8000/predict', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log('API Response:', data);
+
+    // Display the results
+    document.getElementById('diet').innerText = data["Prediction for Diet Recommended"];
+    document.getElementById('exercise').innerText = data["Prediction for Exercise"];
+    document.getElementById('bmr').innerText = Math.round(data["Prediction for BMR"]);
+    document.getElementById('calories').innerText = Math.round(data["Prediction for Calories"]);
+  } catch (error) {
+    console.error('Error calling API:', error);
+  }
+}
+    
